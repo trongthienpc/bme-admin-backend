@@ -68,7 +68,7 @@ router.post('/login', async (req, res) => {
         const user = await User.findOne({ username })
         if (!user)
             return res
-                .status(400)
+                .status(401)
                 .json({
                     success: false,
                     message: 'Incorrect username or password'
@@ -77,7 +77,7 @@ router.post('/login', async (req, res) => {
         const passwordValid = await argon2.verify(user.password, password);
         if (!passwordValid)
             return res
-                .status(400)
+                .status(401)
                 .json({
                     success: false,
                     message: 'Incorrect username or password'
