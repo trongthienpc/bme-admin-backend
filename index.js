@@ -1,7 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const authRoute = require('./routes/auth')
+const authRoute = require('./routes/auth');
+const roomStyleRoute = require('./routes/room');
 
 require('dotenv').config()
 
@@ -25,6 +26,7 @@ app.use(express.json())
 app.use(cors())
 
 app.use('/api/auth', authRoute)
+app.use('/api/room', roomStyleRoute)
 
 const PORT = process.env.PORT || 5001
 
