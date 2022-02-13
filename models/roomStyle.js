@@ -8,18 +8,18 @@ const roomStyleSchema = new Schema(
             required: true
         },
         max: {
-            type: Number,
+            type: String,
             required: true
         },
         bed: {
-            type: Number,
+            type: String,
             required: true
         },
         description: {
             type: String
         },
         image: {
-            type: Buffer
+            type: String
         },
         createdAt: {
             type: Date,

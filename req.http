@@ -21,5 +21,5 @@ Content-Type: application/json
 
 ####################
 
-GET http://localhost:5001/api/room/all
+GET http://localhost:5001/api/rooms/all
 #Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MWZkZjRhNDA4OTQzZDg2YTg2MGQ0N2UiLCJpYXQiOjE2NDQ1NzQyNjR9.UkwupJcLgvfuGZlqS3jz_aUK4Mw51yAbdAN41fO0qTk
