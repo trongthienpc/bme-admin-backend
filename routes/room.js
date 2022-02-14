@@ -48,8 +48,27 @@ router.get("/all", verifyToken, async (req, res) => {
   }
 });
 
+// get room by id
+router.get("/:id", verifyToken, async (req, res) => {
+  try {
+    const id = req.params.id
+    console.log("id:", id);
+    const room = await RoomStyle.findById(id)
+    if (!room) {
+      return res.status(401).json({
+        success: false,
+        message: 'Room not found'
+      })
+    }
+
+    res.json({ success: true, room: room })
+  } catch (error) {
+    res.status(500).json({ success: false, message: "have a error in server" })
+  }
+})
+
 // add new room style
-router.post("/add", upload.single('sex'), async (req, res) => {
+router.post("/add", upload.single('sex'), verifyToken, async (req, res) => {
   try {
     // console.log(req.body);
 
@@ -86,8 +105,8 @@ router.post("/add", upload.single('sex'), async (req, res) => {
   }
 });
 
-
-router.delete("/:id", async (req, res) => {
+// delete room
+router.delete("/:id", verifyToken, async (req, res) => {
   try {
     const roomDeleteCondition = { _id: req.params.id }
     const deleteRoom = await RoomStyle.findOneAndDelete(roomDeleteCondition)
@@ -103,6 +122,43 @@ router.delete("/:id", async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).json({ success: false, message: 'Internal server error' })
+  }
+})
+
+// update room
+router.put("/:id", verifyToken, upload.single('zip'), async (req, res) => {
+  const name = req.body.name;
+  const max = req.body.max;
+  const bed = req.body.bed;
+  const description = req.body.description;
+  const createdBy = "author"; // edit later
+  const image = req.body.image;
+  console.log(req.body.name);
+  if (!name || !max || !bed || !description || !image)
+    return res.status(400).json({ success: false, message: 'Please input information for all max, size, description, name and image' })
+
+  try {
+    const newRoom = {};
+    newRoom.name = name
+    newRoom.max = max
+    newRoom.bed = bed
+    newRoom.description = description
+    newRoom.image = image
+    newRoom.createdBy = 'new author'
+
+    const id = req.params.id
+    console.log(id);
+
+    const update = await RoomStyle.updateOne({ _id: req.params.id }, newRoom, { new: true })
+
+    if (!update)
+      res.status(401).json({ success: false, message: 'Room not found' })
+
+    res.json({ success: true, message: 'Updated successfully!', data: newRoom })
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, message: 'Server error!' })
   }
 })
 module.exports = router;

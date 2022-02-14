@@ -23,3 +23,28 @@ Content-Type: application/json
 
 GET http://localhost:5001/api/rooms/all
 #Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MWZkZjRhNDA4OTQzZDg2YTg2MGQ0N2UiLCJpYXQiOjE2NDQ1NzQyNjR9.UkwupJcLgvfuGZlqS3jz_aUK4Mw51yAbdAN41fO0qTk
+
+####################
+
+
+DELETE http://localhost:5001/api/rooms/62069bb42ebc51b68f285ac7
+
+
+#####
+
+GET http://localhost:5001/api/rooms/6209124cdd17797e1870c4b5
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MWZkZjRhNDA4OTQzZDg2YTg2MGQ0N2UiLCJpYXQiOjE2NDQ4MDk3MjJ9.mGQq5NyFcaV_Jlrob_SZIh6CP-aBqWnzM1zufHykv7Q
+
+#####
+
+
+PUT http://localhost:5001/api/rooms/6209dbd4caa6912438cb7ac0
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MWZkZjRhNDA4OTQzZDg2YTg2MGQ0N2UiLCJpYXQiOjE2NDQ4MDk3MjJ9.mGQq5NyFcaV_Jlrob_SZIh6CP-aBqWnzM1zufHykv7Q
+
+{
+  "title": "Vue",
+  "description": "VUEEEEE",
+  "url": "https://vuejs.org",
+  "status": "LEARNING"
+}
