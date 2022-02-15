@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const authRoute = require("./routes/auth");
 const roomRoute = require("./routes/room");
-
+const blogRoute = require("./routes/blog");
 require("dotenv").config();
 
 const connectDB = async () => {
@@ -28,7 +28,7 @@ app.use(cors());
 
 app.use("/api/auth", authRoute);
 app.use("/api/rooms", roomRoute);
-
+app.use("/api/blogs", blogRoute);
 const PORT = process.env.PORT || 5001;
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
