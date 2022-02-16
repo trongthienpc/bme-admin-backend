@@ -5,18 +5,18 @@ let RoomStyle = require("../models/roomStyle");
 const path = require("path");
 const verifyToken = require("../middleware/auth");
 
-// upload image
+// upload image using multer
 const upload = multer(
-  // {
-  //   storage: multer.diskStorage({
-  //     destination(req, file, cb) {
-  //       cb(null, './files');
-  //     },
-  //     filename(req, file, cb) {
-  //       cb(null, `${new Date().getTime()}_${file.originalname}`);
-  //     }
-  //   }),
-  // },
+  {
+    storage: multer.diskStorage({
+      destination(req, file, cb) {
+        cb(null, './files');
+      },
+      filename(req, file, cb) {
+        cb(null, `${new Date().getTime()}_${file.originalname}`);
+      }
+    }),
+  },
   {
     limits: {
       fieldSize: 2 * 1024 * 1024,
@@ -33,7 +33,7 @@ const upload = multer(
       }
       cb(
         "Error: File upload only supports the following filetypes - " +
-          filetypes
+        filetypes
       );
     },
   }
@@ -72,7 +72,7 @@ router.get("/:id", verifyToken, async (req, res) => {
 });
 
 // add new room style
-router.post("/add", upload.single("sex"), verifyToken, async (req, res) => {
+router.post("/add", upload.single("image"), verifyToken, async (req, res) => {
   try {
     // console.log(req.body);
 
