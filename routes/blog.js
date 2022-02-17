@@ -75,12 +75,14 @@ router.delete("/:id", verifyToken, async (req, res) => {
   const id = req.params.id;
   if (id) {
     try {
+      console.log("call delete blog at id: ", id);
       const result = await BlogModel.findOneAndDelete(id);
       if (!result)
         res.status(401).json({
           success: false,
           message: messages.MESSAGE_401,
         });
+      res.json({ success: true, result });
     } catch (error) {
       res.status(500).json({ success: false, message: error.message });
     }
@@ -93,10 +95,9 @@ router.post("/add", upload.single("sex"), verifyToken, async (req, res) => {
     const name = req.body.name;
     const avatar = req.body.avatar;
     const content = req.body.content;
-    console.log("content:", req.body);
+    const quotes = req.body.quotes;
     const createdBy = "admin";
-
-    const newEntity = { name, avatar, content, createdBy };
+    const newEntity = { name, avatar, content, quotes, createdBy };
     const newEntityModel = new BlogModel(newEntity);
     await newEntityModel.save().then(() => {
       res.json({ success: true, message: messages.ADD_SUCC });
@@ -107,17 +108,22 @@ router.post("/add", upload.single("sex"), verifyToken, async (req, res) => {
 });
 
 // update by id
-router.put("/:id", verifyToken, async (req, res) => {
+router.put("/:id", upload.single("well"), verifyToken, async (req, res) => {
   try {
+    console.log("call update blog");
     const id = req.params.id;
     const name = req.body.name;
     const avatar = req.body.avatar;
+    const quotes = req.body.quotes;
     const content = req.body.content;
 
     let newEntity = {};
     newEntity.name = name;
+
     newEntity.avatar = avatar;
     newEntity.content = content;
+    newEntity.quotes = quotes;
+    newEntity.createdAt = Date.now();
 
     const result = await BlogModel.findByIdAndUpdate(id, newEntity);
 

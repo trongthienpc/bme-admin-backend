@@ -10,11 +10,11 @@ const upload = multer(
   {
     storage: multer.diskStorage({
       destination(req, file, cb) {
-        cb(null, './files');
+        cb(null, "./files");
       },
       filename(req, file, cb) {
         cb(null, `${new Date().getTime()}_${file.originalname}`);
-      }
+      },
     }),
   },
   {
@@ -33,7 +33,7 @@ const upload = multer(
       }
       cb(
         "Error: File upload only supports the following filetypes - " +
-        filetypes
+          filetypes
       );
     },
   }
@@ -139,13 +139,11 @@ router.put("/:id", verifyToken, upload.single("zip"), async (req, res) => {
   const image = req.body.image;
   console.log(req.body.name);
   if (!name || !max || !bed || !description || !image)
-    return res
-      .status(400)
-      .json({
-        success: false,
-        message:
-          "Please input information for all max, size, description, name and image",
-      });
+    return res.status(400).json({
+      success: false,
+      message:
+        "Please input information for all max, size, description, name and image",
+    });
 
   try {
     const newRoom = {};
