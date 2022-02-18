@@ -33,7 +33,7 @@ const upload = multer(
       }
       cb(
         "Error: File upload only supports the following filetypes - " +
-        filetypes
+          filetypes
       );
     },
   }
@@ -84,7 +84,10 @@ router.post("/add", upload.single("image"), verifyToken, async (req, res) => {
     const description = req.body.description;
     const createdBy = "author"; // edit later
     const image = req.body.image;
-
+    // const listImages = JSON.stringify(req.body.images);
+    // console.log(listImages);
+    console.log(req.body.images);
+    const images = req.body.images;
     const newRoomStyleData = {
       name,
       max,
@@ -94,6 +97,7 @@ router.post("/add", upload.single("image"), verifyToken, async (req, res) => {
       description,
       createdBy,
       image,
+      images,
     };
     // // console.log(newRoomStyleData);
 
@@ -143,6 +147,7 @@ router.put("/:id", verifyToken, upload.single("zip"), async (req, res) => {
   const description = req.body.description;
   const createdBy = "author"; // edit later
   const image = req.body.image;
+  const images = req.body.images;
   console.log(req.body.name);
   if (!name || !max || !bed || !description || !image)
     return res.status(400).json({
@@ -160,6 +165,7 @@ router.put("/:id", verifyToken, upload.single("zip"), async (req, res) => {
     newRoom.view = view;
     newRoom.description = description;
     newRoom.image = image;
+    newRoom.images = images;
     newRoom.createdBy = "new author";
 
     const id = req.params.id;
