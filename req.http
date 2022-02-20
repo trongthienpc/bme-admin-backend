@@ -22,7 +22,7 @@ Content-Type: application/json
 ####################
 
 GET http://localhost:5001/api/rooms/all
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MWZkZjRhNDA4OTQzZDg2YTg2MGQ0N2UiLCJpYXQiOjE2NDQ5ODcwODl9.WROPUwyLOmYuw2bm9PCNu0qFQB_bfRK-01gGVV4wtTU
+#Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MWZkZjRhNDA4OTQzZDg2YTg2MGQ0N2UiLCJpYXQiOjE2NDQ5ODcwODl9.WROPUwyLOmYuw2bm9PCNu0qFQB_bfRK-01gGVV4wtTU
 
 ####################
 
