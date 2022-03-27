@@ -127,7 +127,12 @@ router.put("/:id", upload.single("well"), verifyToken, async (req, res) => {
 
     const result = await BlogModel.findByIdAndUpdate(id, newEntity);
 
-    if (result) res.json({ success: true, message: messages.UPDATE_SUCC });
+    if (result)
+      res.json({
+        success: true,
+        message: messages.UPDATE_SUCC,
+        data: newEntity,
+      });
     else req.json({ success: false, message: messages.MESSAGE_401 });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
