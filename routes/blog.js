@@ -4,6 +4,7 @@ const verifyToken = require("../middleware/auth");
 const router = express.Router();
 let BlogModel = require("../models/blog");
 const messages = require("../middleware/const");
+const { cloudinary } = require("../middleware/cloudinary");
 
 // upload image
 const upload = multer(
@@ -77,6 +78,12 @@ router.delete("/:id", verifyToken, async (req, res) => {
   if (id) {
     try {
       console.log("call delete blog at id: ", id);
+      const deleteBlog = await BlogModel.findById(id);
+      if (deleteBlog) {
+        let public_id = deleteBlog.public_id;
+        await cloudinary.uploader.destroy(public_id);
+      }
+
       const result = await BlogModel.findByIdAndDelete(id);
       if (!result)
         res.status(401).json({
