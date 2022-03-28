@@ -95,10 +95,11 @@ router.post("/add", upload.single("sex"), verifyToken, async (req, res) => {
   try {
     const name = req.body.name;
     const avatar = req.body.avatar;
+    const public_id = req.body.public_id;
     const content = req.body.content;
     const quotes = req.body.quotes;
     const createdBy = "admin";
-    const newEntity = { name, avatar, content, quotes, createdBy };
+    const newEntity = { name, avatar, public_id, content, quotes, createdBy };
     const newEntityModel = new BlogModel(newEntity);
     await newEntityModel.save().then(() => {
       res.json({ success: true, message: messages.ADD_SUCC });
@@ -115,12 +116,13 @@ router.put("/:id", upload.single("well"), verifyToken, async (req, res) => {
     const id = req.params.id;
     const name = req.body.name;
     const avatar = req.body.avatar;
+    const public_id = req.body.public_id;
     const quotes = req.body.quotes;
     const content = req.body.content;
 
     let newEntity = {};
     newEntity.name = name;
-
+    newEntity.public_id = public_id;
     newEntity.avatar = avatar;
     newEntity.content = content;
     newEntity.quotes = quotes;

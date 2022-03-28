@@ -10,6 +10,9 @@ const BlogModel = new Schema({
     type: String,
     required: true,
   },
+  public_id: {
+    type: String,
+  },
   quotes: {
     type: String,
     required: true,
