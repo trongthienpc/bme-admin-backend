@@ -73,10 +73,11 @@ router.get("/:id", verifyToken, async (req, res) => {
 // delete by id
 router.delete("/:id", verifyToken, async (req, res) => {
   const id = req.params.id;
+  console.log(id);
   if (id) {
     try {
       console.log("call delete blog at id: ", id);
-      const result = await BlogModel.findOneAndDelete(id);
+      const result = await BlogModel.findByIdAndDelete(id);
       if (!result)
         res.status(401).json({
           success: false,
