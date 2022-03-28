@@ -74,14 +74,20 @@ router.get("/:id", verifyToken, async (req, res) => {
 // delete by id
 router.delete("/:id", verifyToken, async (req, res) => {
   const id = req.params.id;
-  console.log(id);
   if (id) {
     try {
       console.log("call delete blog at id: ", id);
       const deleteBlog = await BlogModel.findById(id);
+      console.log(deleteBlog);
       if (deleteBlog) {
         let public_id = deleteBlog.public_id;
-        await cloudinary.uploader.destroy(public_id);
+        try {
+          await cloudinary.uploader.destroy(public_id, function (err, res) {
+            console.log(err, res);
+          });
+        } catch (error) {
+          console.log(error);
+        }
       }
 
       const result = await BlogModel.findByIdAndDelete(id);
