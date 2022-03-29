@@ -114,8 +114,9 @@ router.post("/add", upload.single("sex"), verifyToken, async (req, res) => {
     const createdBy = "admin";
     const newEntity = { name, avatar, public_id, content, quotes, createdBy };
     const newEntityModel = new BlogModel(newEntity);
-    await newEntityModel.save().then(() => {
-      res.json({ success: true, message: messages.ADD_SUCC });
+    await newEntityModel.save().then((data) => {
+      console.log(data);
+      res.json({ success: true, message: messages.ADD_SUCC, data });
     });
   } catch (error) {
     res.json({ success: false, message: error.message });
