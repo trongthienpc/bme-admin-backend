@@ -126,8 +126,23 @@ router.post("/add", upload.single("sex"), verifyToken, async (req, res) => {
 // update by id
 router.put("/:id", upload.single("well"), verifyToken, async (req, res) => {
   try {
+    let id = req.params.id;
+    let oldEntity = await BlogModel.findById(id);
+    console.log(oldEntity);
+    if (oldEntity) {
+      try {
+        await cloudinary.uploader.destroy(
+          oldEntity.public_id,
+          function (err, res) {
+            console.log(err, res);
+          }
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    }
     console.log("call update blog");
-    const id = req.params.id;
+
     const name = req.body.name;
     const avatar = req.body.avatar;
     const public_id = req.body.public_id;
